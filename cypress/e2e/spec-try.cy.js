@@ -1,18 +1,28 @@
 /// <reference types="cypress" />
+//import Login from "../integration/PageObject/LoginPage.js"
+
+
 describe('Test environment', () => {
-    it('chtoeto', () => {
-        cy.viewport(1536, 960);
-        cy.visit('https://new-marketplace.dev.centerhome.kz/search?deal_type=sale&category_type=lodging&order_by=date');
-        cy.get('[data-testid="CButtonSelect"]').click();
-        cy.get('[data-test="sentinelEnd"]').should('be.visible').contains('Сначала новые').click();
 
 
+    it('cookies', () => {
+        cy.openCenterHome();
+        cy.get('[data-testid="estate-main-card"]').eq(0).click();
+        cy.get('[data-testid="estate-header-3"]').should('be.visible').click();
+        cy.get('[data-testid="share-dropdown-menu-block"]').contains('Скопировать ссылку').click()
+            .then(() => {
+                cy.window().then(win => {
+                    win.navigator.permissions.query({ name: 'clipboard-read' }).then(result => {
+                        if (result.state === 'granted' || result.state === 'prompt') {
+                            cy.readFile('clipboard').then(content => {
+                                expect(content).to.contain('https://new-marketplace.dev.centerhome.kz/estate/');
+                            });
+                        }
+                    });
+                });
+            });
 
-
-
-
-
-
-
-    });
     })
+})
+
+
