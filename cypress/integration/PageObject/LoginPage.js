@@ -8,7 +8,8 @@ class Login {
     }
 
     clickContinue(){
-        cy.get('button[type="button"]').click()   }
+        cy.get('button[type="button"]').click()  
+     }
 
     setPassword(password){
         cy.get('input[name="password"]').type(password)

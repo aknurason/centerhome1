@@ -1,8 +1,5 @@
 describe('Test environment', () => {
-  //afterEach(() => {
- //   cy.openCenterHome();
-//    cy.wait(7000);
- // });
+
   it('clicking all footer buttons', () => {
 
     cy.openCenterHome();
